@@ -7,6 +7,19 @@ class User < ApplicationRecord
    has_many :favorites, dependent: :destroy
 
 
+   def like(book)
+  favorites.create(book_id: book.id)
+end
+
+def unlike(book)
+  favorites.find_by(book_id: book.id).destroy
+end
+
+def like?(book)
+  favorites.find_by(book_id: book.id).present?
+end
+
+
   # -------------------------------------------------------------------------------------------------
 
   devise :database_authenticatable, :registerable,

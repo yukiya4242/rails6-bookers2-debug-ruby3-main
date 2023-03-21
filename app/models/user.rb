@@ -6,6 +6,7 @@ class User < ApplicationRecord
    has_many :book_comments, dependent: :destroy
    has_many :favorites, dependent: :destroy
 
+
   # -------------------------------------------------------------------------------------------------
 
   devise :database_authenticatable, :registerable,

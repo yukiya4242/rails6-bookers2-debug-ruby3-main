@@ -5,12 +5,13 @@ Rails.application.routes.draw do
   post 'users'=>'users#create'
   get 'home/about', to: 'homes#about', as: 'about'
   root to: 'homes#top'
-  
+
   # bookの投稿にコメント？？
-  resources :books, only:[:new, :create, :destroy, :index, :show, :edit, :update] do
+  resources :books, only:[:new, :create, :destroy, :index, :show, :edit, :update]do
+    resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create]
   end
-  
+
   resources :users, only:[:show, :edit, :index, :update]
   resources :favorites, only: [:create, :destroy]
 

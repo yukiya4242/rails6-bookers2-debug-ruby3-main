@@ -16,7 +16,48 @@
         </td>
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
+        <td>
+          <div class="likes">
+            <%= book.favorites.count %> いいね
+            <% if current_user && book.favorites.find_by(user_id: current_user.id) %>
+              <%= button_to 'いいね外す', book_like_path(book.likes.find_by(user_id: current_user.id)), method: :delete, class: "btn btn-danger btn-sm" %>
+            <% else %>
+              <%= button_to 'いいね', book_favorites_path(book), method: :post, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<style>
+  .likes {
+    color: blue;
+  }
+  .liked {
+    color: red;
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    $('.likes button').click(function(event) {
+      event.preventDefault();
+      var $button = $(this);
+      var $likesDiv = $button.closest('.likes');
+      var isLiked = $button.closest('form').find('input[name="_method"]').val() == 'delete';
+      var likesCount = parseInt($likesDiv.text());
+      if (isLiked) {
+        $likesDiv.removeClass('liked');
+        $button.text('いいね');
+        $likesDiv.text(likesCount - 1 + ' いいね');
+      } else {
+        $likesDiv.addClass('liked');
+        $button.text('いいね外す');
+        $likesDiv.text(likesCount + 1 + ' いいね');
+      }
+      $button.closest('form').submit();
+    });
+  });
+</script>

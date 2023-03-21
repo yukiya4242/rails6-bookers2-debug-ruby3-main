@@ -7,7 +7,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
   @book = Book.find(params[:id])
   @user = @book.user
   @book_new = Book.new
-  @bookcomment = Bookcomment.new
+  @bookcomment = BookComment.new
 end
 
   def index

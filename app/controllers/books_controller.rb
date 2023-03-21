@@ -9,7 +9,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
   @book_new = Book.new
   @bookcomment = BookComment.new
   @books = Book.all
-end
+ end
 
   def index
     @books = Book.all

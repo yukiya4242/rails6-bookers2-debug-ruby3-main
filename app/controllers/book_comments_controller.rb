@@ -11,7 +11,7 @@ class BookCommentsController < ApplicationController
       flash[:danger] = "コメントの投稿に失敗しました。"
     end
     redirect_to book_path(@book)
-  end
+   end
 
   # def cerate
   #   book = Book.find(params[:book_id])
@@ -29,7 +29,7 @@ def destroy
     else
       flash[:danger] = "コメントの削除に失敗しました。"
     end
-    redirect_back(fallback_location: root_path)
+    redirect_to book_path(params[:book_id])
 end
 
 

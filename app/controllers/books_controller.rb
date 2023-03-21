@@ -8,6 +8,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
   @user = @book.user
   @book_new = Book.new
   @bookcomment = BookComment.new
+  @books = Book.all
 end
 
   def index

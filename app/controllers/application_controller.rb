@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  #before_action :authenticate_user!
+  protect_from_forgery with: :exception
+  helper_method :current_user, :logged_in?
+  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
 
@@ -13,16 +15,21 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def logged_in?
+    current_user.present?
+  end
+
+
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :name])
   end
 
-   def logged_in_user
-    unless logged_in_user
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
+  def logged_in_user
+  unless logged_in?
+    flash[:danger] = "Please log in."
+    redirect_to login_url
+  end
   end
 end

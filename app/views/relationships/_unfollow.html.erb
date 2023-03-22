@@ -1,0 +1,3 @@
+<%= form_with scope: :relationship, url: relationship_path(@relationship), method: :delete do |form| %>
+  <%= form.submit "Unfollow", class: "btn btn-danger" %>
+<% end %>

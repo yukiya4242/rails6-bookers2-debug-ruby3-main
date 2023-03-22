@@ -12,17 +12,31 @@ class User < ApplicationRecord
   # フォローフォロワー-------------------------------------
   has_many :active_relationshiops, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :following, through: :active_relationshiops, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
-def following
-  active_relationshiops.map { |r| r.followed }
+
+def follow(user)
+  following << user
 end
 
-def followers
-  passive_relationships.map { |r| r.follower }
+# このメソッド(following.delete(user))が使用される場合、ユーザーがフォロー解除するために使用されます。
+# 例えば、「フォロー中」ボタンをクリックした際に、このメソッドを実行して、現在のユーザーがフォローしているユーザーから
+# クリックされたユーザーを削除することができます。
+# また、このメソッドを使用することで、関連する中間テーブルのレコードも自動的に削除されるため、
+# データベースの整合性が保たれます。
+
+def unfollow(user)
+  following.delete(user)
 end
 
+# following.include?(user)は、引数で渡されたユーザーが、followingに含まれているかどうかを判定することができる
 
+def following?(user)
+  following.include?(user)
+end
 
+# --------------------------------------------------------------------------------------------------------
 
 def like(book)
   favorites.create(book_id: book.id)

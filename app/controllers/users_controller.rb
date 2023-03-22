@@ -3,6 +3,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:top]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+
+   def follow
+    @user = User.find(params[:id])
+    current_user.follow(@user)
+    redirect_to @user
+   end
+
   def show
     @user = User.find(params[:id])
     @books = @user.books
@@ -37,7 +44,7 @@ flash.now[:error] = "Error: failed to sign up."
 render 'new'
 end
 
-end
+  end
 
   def update
     if @user.update(user_params)

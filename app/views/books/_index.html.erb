@@ -38,8 +38,10 @@
     <td>
       <p>
       <strong>コメント数:</strong>
+      <%# @book.book_comments.each do |comment| %>
         <%= @book.book_comments.count %>
       </p>
+
     </td>
   </tr>
   <% end %>

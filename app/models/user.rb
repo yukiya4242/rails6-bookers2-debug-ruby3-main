@@ -16,6 +16,10 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
 
+def followed_users
+ User.where(id: following.select(:followed_id))
+end
+
 def follow(user)
   following << user
 end

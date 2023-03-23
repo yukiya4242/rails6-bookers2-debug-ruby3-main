@@ -19,3 +19,9 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+(document).on('ajax:success', '.like-button', function(event) {
+  var $target = (event.target);
+  var $likes = $target.closest('.likes');
+  $likes.replaceWith(event.detail[2].responseText);
+});
+

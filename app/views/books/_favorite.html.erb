@@ -1,0 +1,43 @@
+<div class="likes<%= ' liked' if book.favorited_by?(current_user) %>">
+  <span class="like-count <%= 'blue' if book.favorites_count.zero? %>"><%= book.favorites_count %></span>
+
+  <%= button_to book_favorites_path(book.id), method: :post, class: "like-button", remote: true do %>
+    <% if book.favorited_by?(current_user) %>
+      <i class="fas fa-heart red"></i>
+    <% else %>
+      <i class="far fa-heart"></i>
+    <% end %>
+  <% end %>
+
+</div>
+
+
+
+<style>
+.likes {
+display: inline-flex;
+align-items: center;
+font-size: 1rem;
+color: blue;
+}
+.likes.liked {
+color: red;
+}
+.like-count {
+margin-right: 0.25rem;
+}
+.like-button {
+padding: 0;
+background-color: transparent;
+border: none;
+}
+.like-button:hover {
+cursor: pointer;
+}
+.blue {
+color: blue;
+}
+.red {
+color: red;
+}
+</style>

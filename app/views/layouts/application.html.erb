@@ -12,6 +12,8 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+      <body style="background-image: url('<%= asset_path('telegram.white.png') %>')">
+
     <%= render partial: 'layouts/header', locals: { header: @header } %>
       <main>
         <p id="notice"><%= notice %></p>

@@ -1,7 +1,7 @@
 <div class='container'>
 <div class='row'>
 <div class='col-md-3'>
-<h2>User info</h2>
+<h2>User info<i class="fas fa-disease fa-sm"></i></h2>
 <%= render 'users/info', user: @user %>
 <h2 class="mt-3">New book</h2>
 
@@ -24,27 +24,16 @@
 
 <!--いいね,コメント-->
 <td>
-<div class="likes<%= ' liked' if @book.favorites.find_by(user_id: current_user.id) %>">
-<span class="like-count <%= 'blue' if @book.favorites.count.zero? %>"><%= @book.favorites.count %></span>
-<%= button_to book_favorites_path(@book), method: :post, class: "like-button", remote: true do %>
-<% if @book.favorites.find_by(user_id: current_user.id) %>
-
-<i class="fas fa-heart"></i>
-<% else %>
-
-<i class="fas fa-heart"></i>
-<% end %>
-<% end %>
-</div>
+ <%= render partial: 'books/favorite', locals: { book: @book } %>
 </td>
 
 
 
 <td>
-<p>
-<strong>コメント数:</strong>
-<%= @book.book_comments.count %>
-</p>
+ <p>
+  <strong>コメント数:</strong>
+  <%= @book.book_comments.count %>
+ </p>
 </td>
 
 <!--いいねここまで-->
@@ -55,40 +44,15 @@
 <% end %>
 </tr>
 
-<table>
-  <tr>
-    <td>
-      <p><strong>コメント数:</strong> <%= @book.book_comments.count %></p>
-      <% if @book.book_comments.any? %>
-        <ul>
-          <% @book.book_comments.each do |comment| %>
-            <li>
-              <%= link_to image_tag(comment.user.get_profile_image, size: "40x40"), comment.user %>
-              <%= link_to comment.user.name, comment.user %>
-              <%= comment.comment %>
-              <% if comment.user.id == current_user.id %>
-              <%= link_to '削除', book_book_comment_path(@book, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p>コメントがありません</p>
-      <% end %>
-    </td>
-  </tr>
-</table>
+<!-- app/views/books/show.html.erb -->
+<div class="row">
+  <div class="col-md-8">
 
-<td>
 
-  <%= form_with(model: [@book, @book.book_comments.build], remote: true) do |form| %>
-  <%= form.text_area :comment, placeholder: "コメントを入力してください", style: "width: 80%;" "height: 200px" %>
 
-  <%= form.submit "送信", class: "btn btn-primary" %>
-<% end %>
+    <%= render 'book_comments/book_comments', book: @book %>
 
-</td>
 
-</table>
-</div>
+    <%= render 'book_comments/form', book: @book %>
+  </div>
 </div>

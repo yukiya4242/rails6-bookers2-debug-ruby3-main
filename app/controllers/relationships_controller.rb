@@ -3,16 +3,27 @@ class RelationshipsController < ApplicationController
 
   def create
     user = User.find(params[:followed_id])
+    if user
     current_user.follow(user)
+    flash[:notice] = 'フォローに成功しました'
     redirect_to user
+    else
+    redirect_to user_path, alert: 'User not found'
+    end
   end
 
-
-  def destroy
-    user = User.find(params[:followed_id])
+def destroy
+  user = User.find_by(id: params[:followed_id])
+  if user
     current_user.unfollow(user)
+    flash[:notice] = 'フォローの解除に成功しました'
     redirect_to user
+  else
+    # userが見つからなかった場合のエラー処理
+    redirect_to users_path, alert: 'User not found'
   end
+end
+
 
   # def destroy
   #   user = Relationship.find(params[:id]).followed

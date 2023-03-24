@@ -1,7 +1,10 @@
+
+
 <div class="likes<%= ' liked' if book.favorited_by?(current_user) %>">
   <span class="like-count <%= 'blue' if book.favorites_count.zero? %>"><%= book.favorites_count %></span>
 
-  <%= link_to book_favorites_path(book.id), method: :post, class: "like-button", remote: true do %>
+<%= link_to book_favorite_path(book.id), method: :post, class: "like-button", remote: true do %>
+
     <% if book.favorited_by?(current_user) %>
       <i class="fas fa-heart red"></i>
     <% else %>
@@ -11,15 +14,8 @@
 
 </div>
 
-<!--<% if book.favorited_by?(current_user) %>-->
-<!--  <%= link_to book_favorites_path(book), method: :delete, remote: true do %>-->
-<!--  ♥<%= book.favorites.count %>いいね-->
-<!--  <% end %>-->
-<!--<% else %>-->
-<!--  <%= link_to book_favorites_path(book), method: :post, remote: true do %>-->
-<!--  ♡<%= book.favorites.count %>いいね-->
-<!--  <% end %>-->
-<!--<% end %>-->
+
+
 
 
 <style>

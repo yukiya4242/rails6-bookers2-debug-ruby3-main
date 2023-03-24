@@ -13,6 +13,12 @@ class BookCommentsController < ApplicationController
     redirect_to book_path(@book)
    end
 
+   def show
+  @book = Book.find(params[:id])
+  @book_comment = BookComment.new
+   end
+
+
 
 def destroy
     @comment = BookComment.find(params[:id])

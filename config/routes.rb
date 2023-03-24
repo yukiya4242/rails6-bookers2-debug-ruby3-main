@@ -1,33 +1,34 @@
 Rails.application.routes.draw do
-
-
-
-  get "search" => "searches#search"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
-  post 'users'=>'users#create'
+
+  # ユーザーの新規登録はdeviseに含まれているため不要
+  # POSTで受け付けるルーティングもRESTfulにする
+  resources :users, only: [:create]
+
   get 'home/about', to: 'homes#about', as: 'about'
   root to: 'homes#top'
 
-
-  # bookの投稿にコメント？？
-  resources :books, only:[:new, :create, :destroy, :index, :show, :edit, :update]do
-    resource :favorites, only: [:create, :destroy]
+  resources :books do
+    # 単数形に変更し、フォームの送信先URLが適切になるようにする
+    resource :favorite, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
 
-  resources :users, only:[:show, :edit, :index, :update]
-  resources :favorites, only: [:create, :destroy]
-
-  resources :users do
+  resources :users, only: [:show, :edit, :index, :update] do
+    # ルーティングが重複しているため、ここで member ブロックを使う
     member do
       get :following, :followers
     end
-end
+  end
 
   resources :relationships, only: [:create, :destroy]
-  delete '/relationships', to: 'relationships#destroy', as: 'destroy_relationship'
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # DELETEメソッドを使うためのルーティング
+
+  delete '/relationships/:id', to: 'relationships#destroy', as: 'destroy_relationship'
+
+
+  # 検索機能用のルーティング
+  get "search", to: "searches#search"
 
 end

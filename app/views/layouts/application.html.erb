@@ -15,6 +15,9 @@
       <body style="background-image: url('<%= asset_path('telegram.white.png') %>')">
 
     <%= render partial: 'layouts/header', locals: { header: @header } %>
+     <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
       <main>
         <p id="notice"><%= notice %></p>
         <%= yield %>

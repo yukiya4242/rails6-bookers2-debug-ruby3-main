@@ -1,3 +1,1 @@
-
-
-$('.like-button').html("<%= j render(partial: 'books/favorite_button', locals: { book: @book, current_user: current_user }) %>")
+$("#book_<%= @book.id %> .favorite-btn").html("<%= j(render 'favorites/favorite-btn', book: @book) %>");

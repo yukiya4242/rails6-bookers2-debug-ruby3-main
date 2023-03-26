@@ -14,11 +14,13 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following, through: :active_relationshiops, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  
-  
+
+
   # DM機能
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
-  has_many :received_messages, class_name: "Massage", foreign_key: "recipient_id"
+  has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
+  #belongs_to :recipient, class_name: "User", foreign_key: "recipient_id"
+
 
   # 検索方法分岐
   def self.looks(search, word)

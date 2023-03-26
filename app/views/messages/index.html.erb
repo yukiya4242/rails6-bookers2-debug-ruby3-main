@@ -1,3 +1,17 @@
+<!--<%= form_with(model: @message, url: messages_path, local: true) do |form| %>-->
+<!--  <%= form.text_field :recipient_id, placeholder: "Recipient ID" %>-->
+<!--  <%= form.text_field :content, placeholder: "Message (max. 140 characters)" %>-->
+<!--  <%= form.submit "Send", class: "btn btn-primary" %>-->
+<!--<% end %>-->
+
+
+
+
+<% @recipient.each do |recipient| %>
+  <%= recipient.name %>
+<% end %>
+
+
 <h1>New Message</h1>
 
 <%= form_with(model: @message, url: messages_path) do |form| %>

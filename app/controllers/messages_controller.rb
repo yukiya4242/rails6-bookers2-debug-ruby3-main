@@ -5,6 +5,10 @@ class MessagesController < ApplicationController
   def index
     @message = Message.new
     @messages = Message.all
+    @recipient = current_user.received_messages.map(&:sender).uniq
+
+
+  end
 
   def new
     @message = Message.new
@@ -12,7 +16,8 @@ class MessagesController < ApplicationController
 
 
 def create
-  @recipient = User.find(params[:id])
+  @recipient = User.find_by(id: params[:message][:recipient_id])
+
   if current_user.following?(@recipient) # フォローしているユーザーにだけDMを送信
     @message = current_user.sent_messages.build(message_params)
     if @message.save
@@ -21,7 +26,8 @@ def create
       render :new
     end
   else
-    redirect_to messages_path, alert: 'You can only send a message to users you are following.'
+    flash[:alert] = "You can't send messages to users you're not following."
+    redirect_to messages_path(@recipient)
   end
 end
 
@@ -46,5 +52,4 @@ end
     @message = Message.find(params[:id])
   end
 
-end
 end

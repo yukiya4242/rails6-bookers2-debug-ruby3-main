@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_22_014451) do
+ActiveRecord::Schema.define(version: 2023_03_25_081401) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2023_03_22_014451) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "favorites_count"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -66,6 +67,16 @@ ActiveRecord::Schema.define(version: 2023_03_22_014451) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_favorites_on_book_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "sender_id", null: false
+    t.integer "recipient_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipient_id"], name: "index_messages_on_recipient_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -95,4 +106,6 @@ ActiveRecord::Schema.define(version: 2023_03_22_014451) do
   add_foreign_key "book_comments", "users"
   add_foreign_key "favorites", "books"
   add_foreign_key "favorites", "users"
+  add_foreign_key "messages", "recipients"
+  add_foreign_key "messages", "senders"
 end

@@ -20,9 +20,9 @@
 </div>
 <div class='col-md-8 offset-md-1'>
 <h2>Books</h2>
+<% @books = Book.joins(:favorites).where('favorites.created_at >= ?', 1.week.ago).group(:id).order('favorites_count DESC') %>
 <%= render 'index', books: @books %>
 </div>
 
 </div>
 </div>
-

@@ -20,8 +20,9 @@
     <% end %>
       <main>
         <p id="notice"><%= notice %></p>
-        <%= yield %>
+
       </main>
     <%= render 'layouts/footer', locals: { footer: @footer } %>
   </body>
+  <%= yield %>
 </html>

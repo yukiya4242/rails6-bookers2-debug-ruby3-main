@@ -28,6 +28,8 @@
       <%= render partial: 'book_comments/comment', locals: { book: book } %>
     </td>
 
+
+
    <!--<td>-->
    <!--    <p>-->
    <!--   <strong>コメント数:</strong>-->
@@ -46,7 +48,71 @@
   </tr>
 
 </tbody>
+
+<table class="table table-bordered table-dark">
+  <h2>投稿数の前日比・前週比</h2>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"><strong>今日の投稿数</strong></th>
+      <th scope="col">前日の投稿数</th>
+      <th scope="col">前日比</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><i class="fas fa-balance-scale fa-lg"></i></th>
+      <td><%= @today_book_count %></td>
+      <td><%= @yesterday_book_count %></td>
+      <td><%= @yesterday_book_percent %>%</td>
+    </tr>
 </table>
+
+
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"><strong>今週の投稿数</strong></th>
+      <th scope="col">前週の投稿数</th>
+      <th scope="col">前週比</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><i class="fas fa-balance-scale fa-lg"></i></th>
+      <td><%= @this_week_book_count %></td>
+      <td><%= @last_week_book_count %></td>
+      <td><%= @last_week_percent %>%</td>
+    </tr>
+</table>
+
+<table class="table table-bordered table-dark">
+  <h3>7日分の投稿数</h3>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">6日前</th>
+      <th scope="col">5日前</th>
+      <th scope="col">4日前</th>
+      <th scope="col">3日前</th>
+      <th scope="col">2日前</th>
+      <th scope="col">1日前</th>
+      <th scope="col">今日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><i class="fas fa-balance-scale fa-lg"></i></th>
+      <th><%= @books.created_6days.count %></th>
+      <th><%= @books.created_5days.count %></th>
+      <th><%= @books.created_4days.count %></th>
+      <th><%= @books.created_3days.count %></th>
+      <th><%= @books.created_2days.count %></th>
+      <td><%= @yesterday_book_count %></td>
+      <td><%= @today_book_count %></td>
+
+    </tr>
 
 
 

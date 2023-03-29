@@ -9,6 +9,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
   @book_new = Book.new
   @book_comment = BookComment.new
   @books = Book.all
+  
  end
 
   def index
@@ -56,7 +57,7 @@ end
 
 def ensure_correct_user
 @book = Book.find(params[:id])
-if @book.user != current_user
+if @book.user != current_user.id
 redirect_to books_path
 end
 end

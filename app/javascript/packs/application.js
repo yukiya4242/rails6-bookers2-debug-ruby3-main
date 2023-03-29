@@ -5,7 +5,12 @@
 //= require anime.min
 //= require jquery
 //= require jquery_ujs
+//= require chartkick
+//= require Chart.bundle
 
+import "chartkick"
+import "Chart.bundle"
+import "chartkick/chart.js"
 
 
 import Rails from "@rails/ujs"

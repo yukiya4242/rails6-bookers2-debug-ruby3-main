@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :edit, :index, :update] do
-
+     get "search", to: "users#search"
     member do
       get :following, :followers
     end
@@ -31,5 +31,6 @@ Rails.application.routes.draw do
 
   # 検索機能用のルーティング
   get "search", to: "searches#search"
+
 
 end

@@ -1,5 +1,12 @@
 class Book < ApplicationRecord
 
+  # グラフ表示（js)
+  scope :make_book_week, -> {
+    group_by.count
+  }
+
+
+
   # スコープ機能とは、モデル側であらかじめ特定の条件式に対して名前をつけて定義し
   # その名前でメソッドの様に条件式を呼び出すことが出来る仕組みのこと
   scope :created_today, -> { where(created_at: Time.zone.now.all_day) }
@@ -20,10 +27,12 @@ class Book < ApplicationRecord
 # リファクタリングとは、既存のコードを改善し、保守性を向上させるプロセス
     # ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 # scope :created_days_ago, ->(n) { where(created_at: n.days.ago.all.day) }
- 
- 
- 
+
+
+
  scope :created_on, ->(date) { where(created_at: date.all.day) }
+
+
 
 
 
@@ -33,6 +42,8 @@ class Book < ApplicationRecord
   has_many :likes, dependent: :destroy
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
+
+
 
 
   def favorites_count

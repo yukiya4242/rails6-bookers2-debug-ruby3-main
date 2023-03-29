@@ -3,6 +3,21 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:top]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+
+
+  def search
+    @user = User.find(params[:user_id])
+    @books = @user.books
+    @book = Book.new
+    if params[:created_at] == ""
+      @search_book = "日付を選択してください"
+    else
+      create_at = params[:created_at]
+      @search_book = @books.where(['created_at LIKE ? ', "#{create_at}%"]).count
+    end
+  end
+
+
   def follow
     @user = User.find(params[:id])
     current_user.follow(@user)
@@ -15,6 +30,7 @@ class UsersController < ApplicationController
     @book = Book.new
     @book = Book.find(params[:book_id]) if params[:book_id]
     @users = User.all
+    @books_make_book_week = Book.make_book_week
 
     @today_book_count = @books.created_today.count
     @yesterday_book_count = @books.created_yesterday.count

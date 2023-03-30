@@ -1,6 +1,7 @@
 <div class='container px-5 px-sm-0'>
 <div class='row'>
 <div class='col-md-3'>
+<div><%=link_to "グループを作成する",new_group_path %> | <%=link_to "グループ一覧",groups_path %></div>
 
 <h2>User info<i class="fas fa-disease fa-sm"></i></h2>
 <%= render 'info', user: current_user %>

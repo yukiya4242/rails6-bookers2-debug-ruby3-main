@@ -3,9 +3,10 @@ class User < ApplicationRecord
   # dependent: :destroyは、has_manyで使えるオプションです。 1:Nの関係において、
   # 「1」のデータが削除された場合、関連する「N」のデータも削除される設定です。
   # この設定では、Userのデータが削除されたとき、そのUserが投稿したコメントデータも一緒に削除されます。
-  
+
    has_many :books, dependent: :destroy
-   
+   has_many :group_users
+
 
   # いいね、コメント--------------------------------------------
    has_many :book_comments, dependent: :destroy
@@ -89,6 +90,7 @@ end
 
   has_many :books
   has_one_attached :profile_image
+
 
   # -------------------------------------------------------------------------------------------------
 

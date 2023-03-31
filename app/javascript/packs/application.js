@@ -33,3 +33,13 @@ ActiveStorage.start()
   $likes.replaceWith(event.detail[2].responseText);
 });
 
+
+
+
+// import Raty from "raty.js"
+// window.raty = function(elem,opt) {
+//   let raty =  new Raty(elem,opt)
+//   raty.init();
+//   return raty;
+// }
+
